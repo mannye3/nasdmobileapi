@@ -130,6 +130,125 @@ class PriceController extends Controller
 
 
 
+                             public function security_bids1($symbol)
+    {
+
+        $client = new Client(); //GuzzleHttp\Client
+         $url = "http://38.17.52.42/ATS/Dealing/marketdataquant.aspx";
+
+        $response = $client->request('GET', $url, [
+            'verify'  => false,
+        ]);
+
+         $responseBody = json_decode($response->getBody());
+
+                $security_details = $responseBody;
+
+
+
+                    foreach ($security_details as $security) :
+                        if($security->Security == $security)
+                        {
+                            $security->Security =  $security;
+                             $security->high =  $high;
+
+                        }
+
+                    endforeach;
+
+                  return  $data = [
+                        'Security' => $security_info,
+
+                    ];
+
+                  return  response()->json([
+                            'status' => 200,
+                             'Security' => $data
+                                ]);
+
+            }
+
+
+
+
+
+
+            public function trades($security)
+    {
+
+        $client = new Client();
+            $url = "http://38.17.52.42/ATS/Dealing/marketdataquant.aspx";
+
+            $response = $client->request('GET', $url, [
+                'verify'  => false,
+            ]);
+
+
+          $responseBody = json_decode($response->getBody());
+
+                $price_details = $responseBody;
+
+
+
+
+                    foreach ($price_details as $trades) :
+                        if($trades->Security == $security)
+                        {
+
+                             $security_name = $trades->Security;
+                             $count = $trades->count;
+                             $openprice = $trades->openprice;
+                             $closeprice = $trades->closeprice;
+                             $volume = $trades->volume;
+                             $highestqty = $trades->highestqty;
+                             $lowestqty = $trades->lowestqty;
+                             $value = $trades->value;
+                             $high = $trades->high;
+                             $low = $trades->low;
+                             $bid = $trades->bid;
+                             $ask = $trades->ask;
+
+
+                        }
+
+                    endforeach;
+
+                    $data = [
+                        'Security' => $security_name,
+                        'count' => $count,
+                        'openprice' => $openprice,
+                        'closeprice' => $closeprice,
+                        'volume' => $volume,
+                        'highestqty' => $highestqty,
+                        'lowestqty' => $lowestqty,
+                        'value' => $value,
+                        'high' => $high,
+                        'low' => $low,
+                        'bid' => $bid,
+                        'ask' => $ask,
+
+
+
+                    ];
+
+                  return  response()->json([
+
+                             $data
+                                ]);
+
+            }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

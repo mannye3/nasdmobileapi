@@ -17,6 +17,7 @@ use App\Http\Controllers\API\NewAccountController;
 
 // Price List
 Route::get('price_update', [PriceController::class, 'prices_vfd']);
+Route::get('trades/{security}', [PriceController::class, 'trades']);
 Route::get('price_list', [PriceController::class, 'price_list']);
 Route::get('priceList/{symbol}', [PriceController::class, 'priceList']);
 Route::get('priceperformance/{symbol}', [PriceController::class, 'priceperformance']);
